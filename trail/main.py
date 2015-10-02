@@ -1,9 +1,5 @@
-'''Implements a wrapper script for executing a Python program from the
-command line and which implements an alternate way of bootstrapping the
-registration of post import hook callback functions when the '.pth' file
-mechanism doesn't work. This can be necessary when using 'buildout' but
-may still fail with 'buildout' if 'buildout' has been setup itself to
-override any 'sitecustomize' module with it ignoring any existing one.
+"""Implements a wrapper script for executing a Python program from the
+command line.
 
 The wrapper script works by adding a special directory into the
 'PYTHONPATH' environment variable, describing additional Python module
@@ -12,22 +8,22 @@ the Python interpreter is started that custom 'sitecustomize' module
 will be automatically loaded. This allows the custom 'sitecustomize'
 file to then load any original 'sitecustomize' file which may have been
 hidden and then bootstrap the registration of the post import hook
-callback functions.
-
-'''
+callback functions."""
 
 import sys
 import os
 import time
 
-_debug = os.environ.get('TRAIL_DEBUG',
-        'off').lower() in ('on', 'true', '1')
+_debug = os.environ.get(
+    'TRAIL_DEBUG', 'off').lower() in ('on', 'true', '1')
+
 
 def log_message(text, *args):
     if _debug:
         text = text % args
         timestamp = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         print('TRAIL: %s (%d) - %s' % (timestamp, os.getpid(), text))
+
 
 def run_program(args):
     log_message('trail - wrapper (%s)', __file__)
@@ -61,9 +57,12 @@ def run_program(args):
 
     if 'PYTHONPATH' in os.environ:
         path = os.environ['PYTHONPATH'].split(os.path.pathsep)
-        if not boot_directory in path:
-            python_path = "%s%s%s" % (boot_directory, os.path.pathsep,
-                    os.environ['PYTHONPATH'])
+        if boot_directory not in path:
+            python_path = "%s%s%s" % (
+                boot_directory,
+                os.path.pathsep,
+                os.environ['PYTHONPATH']
+            )
 
     os.environ['PYTHONPATH'] = python_path
 
@@ -89,8 +88,8 @@ def run_program(args):
     program_exe_path = args[0]
 
     if not os.path.dirname(program_exe_path):
-        program_search_path = os.environ.get('PATH',
-                '').split(os.path.pathsep)
+        program_search_path = os.environ.get(
+            'PATH', '').split(os.path.pathsep)
 
         for path in program_search_path:
             path = os.path.join(path, program_exe_path)
@@ -102,6 +101,7 @@ def run_program(args):
     log_message('execl_arguments = %r', [program_exe_path]+args)
 
     os.execl(program_exe_path, *args)
+
 
 def main():
     if len(sys.argv) <= 1:

@@ -1,25 +1,17 @@
-'''Provides the bootstrap functions to be invoked on Python interpreter
+"""Provides the bootstrap functions to be invoked on Python interpreter
 startup to register any post import hook callback functions. These would
-be invoked from either a '.pth' file, or from a custom 'sitecustomize'
-module setup by the 'trail' wrapper script.
+be invoked from from a custom 'sitecustomize' module setup by the 'trail'
+wrapper script."""
 
-'''
-
-import os
 import site
 
 _registered = False
 
+
 def register_bootstrap_functions():
-    '''Discover and register all post import hooks named in the
-    'TRAIL_BOOTSTRAP' environment variable. The value of the
-    environment variable must be a comma separated list.
-
-    '''
-
-    # This can be called twice if '.pth' file bootstrapping works and
-    # the 'trail' wrapper script is still also used. We therefore
-    # protect ourselves just in case it is called a second time as we
+    """Register all post import hooks."""
+    # This can be called twice. We therefore protect ourselves
+    # just in case it is called a second time as we
     # only want to force registration once.
 
     global _registered
@@ -39,6 +31,7 @@ def register_bootstrap_functions():
 
     register_post_import_hook('trail.examples:example', 'this')
 
+
 def _execsitecustomize_wrapper(wrapped):
     def _execsitecustomize(*args, **kwargs):
         try:
@@ -54,6 +47,7 @@ def _execsitecustomize_wrapper(wrapped):
 
     return _execsitecustomize
 
+
 def _execusercustomize_wrapper(wrapped):
     def _execusercustomize(*args, **kwargs):
         try:
@@ -65,13 +59,11 @@ def _execusercustomize_wrapper(wrapped):
 
 _patched = False
 
-def bootstrap():
-    '''Patches the 'site' module such that the bootstrap functions for
-    registering the post import hook callback functions are called as
-    the last thing done when initialising the Python interpreter. This
-    function would normally be called from the special '.pth' file.
 
-    '''
+def bootstrap():
+    """Patches the 'site' module such that the bootstrap functions for
+    registering the post import hook callback functions are called as
+    the last thing done when initialising the Python interpreter."""
 
     global _patched
 

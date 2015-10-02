@@ -1,4 +1,4 @@
-'''Provides a custom 'sitecustomize' module which will be used when the
+"""Provides a custom 'sitecustomize' module which will be used when the
 'trail' wrapper script is used when launching a Python program. This
 custom 'sitecustomize' module will find any existing 'sitecustomize'
 module which may have been overridden and ensures that that is imported
@@ -6,17 +6,16 @@ as well. Once that is done then the monkey patches for ensuring any
 bootstrapping is done for registering post import hook callback
 functions after the 'usercustomize' module is loaded will be applied. If
 however 'usercustomize' support is not enabled, then the registration
-will be forced immediately.
-
-'''
+will be forced immediately."""
 
 import os
 import sys
 import site
 import time
 
-_debug = os.environ.get('TRAIL_DEBUG',
-        'off').lower() in ('on', 'true', '1')
+_debug = os.environ.get(
+    'TRAIL_DEBUG', 'off').lower() in ('on', 'true', '1')
+
 
 def log_message(text, *args):
     if _debug:
