@@ -29,7 +29,62 @@ def register_bootstrap_functions():
 
     # here is where I should add a lot of wrappers for django modules
 
-    register_post_import_hook('trail.examples:example', 'this')
+    register_post_import_hook(
+        'trail.examples:example',
+        'this'
+    )
+    register_post_import_hook(
+        'trail.examples:django_core_urlresolvers',
+        'django.core.urlresolvers'
+    )
+    # register_post_import_hook(
+    #     'trail.examples:django_template',
+    #     'django.template'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:django_template_loader_tags',
+    #     'django.template.loader_tags'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:django_core_servers_basehttp',
+    #     'django.core.servers.basehttp'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:django_contrib_staticfiles_views',
+    #     'django.contrib.staticfiles.views'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:django_contrib_staticfiles_handlers',
+    #     'django.contrib.staticfiles.handlers'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:django_views_debug',
+    #     'django.views.debug'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:http_multipartparser',
+    #     'django.http.multipartparser'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:core_mail',
+    #     'django.core.mail'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:core_mail_message',
+    #     'django.core.mail.message'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:views_generic_base',
+    #     'django.views.generic.base'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:core_management_base',
+    #     'django.core.management.base'
+    # )
+    # register_post_import_hook(
+    #     'trail.examples:template_base',
+    #     'django.template.base'
+    # )
 
 
 def _execsitecustomize_wrapper(wrapped):
