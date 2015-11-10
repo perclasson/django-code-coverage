@@ -9,13 +9,17 @@ To test it out, run the wrapper script with Python:
 
     trail python
 
-At the Python interpreter prompt then enter:
+Goals
+=====
 
-    import this
+Using Django 1.5, this package should be able to identify unused:
 
-This should print out the Zen of Python as normal, but with an extra line
-added to the end.
+- templates
+- template tags
+- template filters
+- views
+- urls
 
 Credits
 ======
-This module is based upon Graham Dumpleton's [autowrapt](https://github.com/GrahamDumpleton/autowrapt/).
+This module is based partially on Graham Dumpleton's [autowrapt](https://github.com/GrahamDumpleton/autowrapt/).
